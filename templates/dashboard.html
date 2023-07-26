@@ -51,7 +51,7 @@
                         <div class="stat-content">
                             <div class="text-left dib">
                                 <div class="stat-text"><span class="count">{{ supplier }}</span></div>
-                                <div class="stat-heading">Supplier</div>
+                                <div class="stat-heading">Sales</div>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <div class="stat-content">
                             <div class="text-left dib">
                                 <div class="stat-text"><span class="count">{{ buyer }}</span></div>
-                                <div class="stat-heading">Buyer</div>
+                                <div class="stat-heading">Supplier</div>
                             </div>
                         </div>
                     </div>
@@ -149,5 +149,52 @@
             
         </div>
     </div>
+    <div class="row align-items-center">
+        <div class="col-md-8"> <!-- Increase the column width to make the chart wider -->
+            <div class="chart-container">
+                <canvas id="combinedChart" style="max-width: 1200px; height: 500px;"></canvas> <!-- Increase the width and height of the canvas -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>            
+        // Get the context of the canvas element
+        var ctxCombined = document.getElementById('combinedChart').getContext('2d');
+    
+        // Define the data for the combined chart (replace with your own data)
+        var combinedData = {
+            labels: ['Sales', 'Order'],
+            datasets: [{
+                label: 'Data',
+                data: [{{visitors}}, {{users}}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)', // Red gradient
+                    'rgba(75, 192, 192, 0.5)', // Green gradient
+                    'rgba(54, 162, 235, 0.5)', // Blue gradient
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)', // Red border
+                    'rgba(75, 192, 192, 1)', // Green border
+                    'rgba(54, 162, 235, 1)', // Blue border
+                ],
+                borderWidth: 1
+            }]
+        };
+    
+        // Create and render the combined chart
+        var combinedChart = new Chart(ctxCombined, {
+            type: 'bar',
+            data: combinedData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
     <!-- /.orders -->
 {% endblock content %}
